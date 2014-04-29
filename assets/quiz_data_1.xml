@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QuizData>
+    <Intro>
+        <Type>Energy and Environment</Type>
+        <Name>SampleData1</Name>
+        <Description>Put here quiz description</Description>
+        <QuestionsCount>8</QuestionsCount>
+        <AllowedTime>10 minutes</AllowedTime>
+        <Updated>2013-11-30T15:45HKT</Updated>
+    </Intro>
+    <QuestionsList>
+        <Question>
+            <Instructions>Please choose an appropriate answer</Instructions>
+            <Title>Which one/s of the following is/are the type/s of waste in Hong Kong?</Title>
+            <Weight>1</Weight>
+            <Answer>D</Answer>
+            <ChoicesList>
+                <Choice>
+                    <Number>A</Number>
+                    <Title>Construction waste</Title>
+                </Choice>
+                <Choice>
+                    <Number>B</Number>
+                    <Title>Clinical waste</Title>
+                </Choice>
+                <Choice>
+                    <Number>C</Number>
+                    <Title>Livestock waste</Title>
+                </Choice>
+                <Choice>
+                    <Number>D</Number>
+                    <Title>All of the above</Title>
+                </Choice>
+            </ChoicesList>
+        </Question>
+        <!-- Other questions goes here -->
+    </QuestionsList>
+</QuizData>

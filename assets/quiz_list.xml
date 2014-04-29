@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QuizList>
+    <Quiz>
+        <Name>SampleData1</Name>
+        <Description>Put here quiz description</Description>
+        <Location>http://domain.name/quizes/quiz_data_1.xml</Location>
+    </Quiz>
+    <!-- Other quizes goes here -->
+</QuizList>
