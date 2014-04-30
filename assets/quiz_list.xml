@@ -2,8 +2,15 @@
 <QuizList>
     <Quiz>
         <Name>SampleData1</Name>
-        <Description>Put here quiz description</Description>
-        <Location>http://domain.name/quizes/quiz_data_1.xml</Location>
+        <Description>Put here quiz 1 description</Description>
+        <IntroLocation>http://domain.name/quizes/SampleData1Intro1.plist</IntroLocation>
+        <DataLocation>http://domain.name/quizes/SampleData1.plist</DataLocation>
+    </Quiz>
+    <Quiz>
+        <Name>SampleData2</Name>
+        <Description>Put here quiz 2 description</Description>
+        <IntroLocation>http://domain.name/quizes/SampleData2Intro1.plist</IntroLocation>
+        <DataLocation>http://domain.name/quizes/SampleData2.plist</DataLocation>
     </Quiz>
     <!-- Other quizes goes here -->
 </QuizList>

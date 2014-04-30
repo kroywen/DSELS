@@ -2,5 +2,20 @@
 <resources>
 
     <string name="app_name">DSE LS</string>
+    <string name="app_title">iScore DSE Practice</string>
+    <string name="start">Start</string>
+    <string name="subject">Subject:</string>
+    <string name="paper_ref">Paper Ref:</string>
+    <string name="number_of_questions">No. of Questions:</string>
+    <string name="allowed_time">Allowed Time:</string>
+    <string name="instructions">Instructions</string>
+    <string name="instructions_text">&#8226; Choose one of A, B, C or D as answer.\n
+&#8226; Can change your selected choice.\n
+&#8226; [Next Q] to next question, [Back] to go back.\n
+&#8226; Internet MUST be *** TURNE ON ***</string>
+	<string name="back">Back</string>
+	<string name="next_q">Next Q</string>
+	<string name="results">Results</string>
+	<string name="user_input_format">User Input [%1$s]</string>
 
 </resources>

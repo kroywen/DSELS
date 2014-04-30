@@ -1,5 +1,5 @@
 <resources>
 
-    
+    <dimen name="screen_padding">15dp</dimen>
 
 </resources>
