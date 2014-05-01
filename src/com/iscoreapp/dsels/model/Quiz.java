@@ -93,5 +93,83 @@ public class Quiz {
 	public String toString() {
 		return name;
 	}
+	
+	public int getScore() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int score = 0;
+		for (Question question : questions) {
+			if (question.isUserInputCorrect()) {
+				score += question.getWeight();
+			}
+		}
+		return score;
+	}
+	
+	public int getScoreCount() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int scoreCount = 0;
+		for (Question question : questions) {
+			if (question.isUserInputCorrect()) {
+				scoreCount++;
+			}
+		}
+		return scoreCount;
+	}
+	
+	public int getWrong() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int wrong = 0;
+		for (Question question : questions) {
+			if (question.hasUserInput() && !question.isUserInputCorrect()) {
+				wrong += question.getWeight();
+			}
+		}
+		return wrong;
+	}
+	
+	public int getWrongCount() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int wrongCount = 0;
+		for (Question question : questions) {
+			if (question.hasUserInput() && !question.isUserInputCorrect()) {
+				wrongCount++;
+			}
+		}
+		return wrongCount;
+	}
+	
+	public int getUnanswered() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int unanswered = 0;
+		for (Question question : questions) {
+			if (!question.hasUserInput()) {
+				unanswered += question.getWeight();
+			}
+		}
+		return unanswered;
+	}
+	
+	public int getUnansweredCount() {
+		if (questions == null || questions.isEmpty()) {
+			return 0;
+		}
+		int unansweredCount = 0;
+		for (Question question : questions) {
+			if (!question.hasUserInput()) {
+				unansweredCount++;
+			}
+		}
+		return unansweredCount;
+	}
 
 }

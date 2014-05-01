@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.iscoreapp.dsels.R;
 import com.iscoreapp.dsels.model.Question;
 
-public class QuestionFragment extends Fragment {
+public class QuestionFragment extends Fragment implements OnCheckedChangeListener {
 	
 	public static final String EXTRA_QUESTION = "question";
 	public static final String EXTRA_QUESTION_NUMBER = "question_number";
@@ -48,17 +49,50 @@ public class QuestionFragment extends Fragment {
 		questionView.setText(questionNumber + ". " + question.getQuestion());
 		
 		choiceGroup = (RadioGroup) rootView.findViewById(R.id.choiceGroup);
+		choiceGroup.setOnCheckedChangeListener(this);
+		
 		choice1Btn = (RadioButton) rootView.findViewById(R.id.choice1Btn);
 		choice1Btn.setText(question.getChoice1());
+		choice1Btn.setVisibility(question.hasChoice1() ? View.VISIBLE : View.GONE);
+		
 		choice2Btn = (RadioButton) rootView.findViewById(R.id.choice2Btn);
 		choice2Btn.setText(question.getChoice2());
+		choice2Btn.setVisibility(question.hasChoice2() ? View.VISIBLE : View.GONE);
+		
 		choice3Btn = (RadioButton) rootView.findViewById(R.id.choice3Btn);
 		choice3Btn.setText(question.getChoice3());
+		choice3Btn.setVisibility(question.hasChoice3() ? View.VISIBLE : View.GONE);
+		
 		choice4Btn = (RadioButton) rootView.findViewById(R.id.choice4Btn);
 		choice4Btn.setText(question.getChoice4());
+		choice4Btn.setVisibility(question.hasChoice4() ? View.VISIBLE : View.GONE);
 		
 		userInput = (TextView) rootView.findViewById(R.id.userInput);
-		userInput.setText(getString(R.string.user_input_format, question.getUserInput()));
+		updateUserInputView();
+	}
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+		case R.id.choice1Btn:
+			question.setUserInput("A");
+			break;
+		case R.id.choice2Btn:
+			question.setUserInput("B");
+			break;
+		case R.id.choice3Btn:
+			question.setUserInput("C");
+			break;
+		case R.id.choice4Btn:
+			question.setUserInput("D");
+			break;
+		}
+		updateUserInputView();
+	}
+	
+	private void updateUserInputView() {
+		String input = question.hasUserInput() ? " " + question.getUserInput() + " " : "    ";
+		userInput.setText(getString(R.string.user_input_format, input));
 	}
 
 }

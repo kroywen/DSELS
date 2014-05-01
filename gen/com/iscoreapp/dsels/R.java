@@ -25,15 +25,20 @@ public final class R {
         public static final int choice4Btn=0x7f07000c;
         public static final int choiceGroup=0x7f070008;
         public static final int nextBtn=0x7f070010;
+        public static final int paperTotalView=0x7f070014;
         public static final int questionCount=0x7f070002;
         public static final int questionView=0x7f070007;
         public static final int quizName=0x7f070000;
         public static final int quizPicker=0x7f070005;
         public static final int quizType=0x7f070001;
+        public static final int scoreView=0x7f070011;
         public static final int selectedQuizView=0x7f070006;
         public static final int startBtn=0x7f070004;
+        public static final int startNewBtn=0x7f070015;
+        public static final int unansweredView=0x7f070013;
         public static final int userInput=0x7f07000d;
         public static final int viewPager=0x7f07000e;
+        public static final int wrongView=0x7f070012;
     }
     public static final class layout {
         public static final int intro_screen=0x7f030000;
@@ -52,10 +57,16 @@ public final class R {
         public static final int next_q=0x7f05000a;
         public static final int number_of_questions=0x7f050005;
         public static final int paper_ref=0x7f050004;
+        public static final int paper_total=0x7f050011;
         public static final int results=0x7f05000b;
+        public static final int score=0x7f05000e;
+        public static final int score_card=0x7f05000d;
         public static final int start=0x7f050002;
+        public static final int start_new=0x7f050012;
         public static final int subject=0x7f050003;
+        public static final int unanswered=0x7f050010;
         public static final int user_input_format=0x7f05000c;
+        public static final int wrong=0x7f05000f;
     }
     public static final class style {
         /** 

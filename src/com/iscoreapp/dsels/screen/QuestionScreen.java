@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,13 +18,10 @@ import android.widget.Button;
 import com.iscoreapp.dsels.R;
 import com.iscoreapp.dsels.fragment.QuestionFragment;
 import com.iscoreapp.dsels.model.Question;
-import com.iscoreapp.dsels.model.Quiz;
 
 public class QuestionScreen extends BaseScreen implements OnClickListener, OnPageChangeListener {
 	
-	private String name;
 	private int questionNumber;
-	private Quiz quiz;
 	private List<Question> questions;
 	
 	private ViewPager viewPager;
@@ -38,19 +34,23 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 		setContentView(R.layout.question_screen);
 		initializeViews();
 		
-		ActionBar actionbar = getActionBar();
-		if (actionbar != null) {
-			actionbar.setDisplayHomeAsUpEnabled(true);
-		}
-		
-		getIntentData();
-		if (TextUtils.isEmpty(name)) {
+		if (quiz == null) {
 			finish();
 			return;
 		}
+
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle(quiz.getName());
+		}
 		
-		quiz = quizProvider.loadQuiz(name);
 		questions = quiz.getQuestions();
+		if (questions == null || questions.isEmpty()) {
+			finish();
+			return;
+		}
+		questionNumber = 0; 
 		
 		updateViews();
 	}
@@ -63,14 +63,6 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
-		}
-	}
-	
-	private void getIntentData() {
-		Intent intent = getIntent();
-		if (intent != null) {
-			name = intent.getStringExtra(EXTRA_QUIZ_NAME);
-			questionNumber = intent.getIntExtra(EXTRA_QUESTION_NUMBER, 0);
 		}
 	}
 	
@@ -115,6 +107,7 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 	
 	private void nextQuestion() {
 		if (questionNumber == questions.size()-1) {
+			startResultsScreen();
 			return;
 		}
 		viewPager.setCurrentItem(viewPager.getCurrentItem()+1, true);
@@ -144,16 +137,10 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int state) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onPageScrollStateChanged(int state) {}
 
 	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
 	@Override
 	public void onPageSelected(int position) {
@@ -164,6 +151,12 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 			questionNumber++;
 			updateButtons();
 		}
+	}
+	
+	private void startResultsScreen() {
+		Intent intent = new Intent(this, ResultsScreen.class);
+		startActivity(intent);
+		finish();
 	}
 
 }

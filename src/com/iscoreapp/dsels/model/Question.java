@@ -66,12 +66,20 @@ public class Question implements Serializable {
 		this.choice1 = choice1;
 	}
 	
+	public boolean hasChoice1() {
+		return !(TextUtils.isEmpty(choice1) || choice1.equals("NA"));
+	}
+	
 	public String getChoice2() {
 		return choice2;
 	}
 	
 	public void setChoice2(String choice2) {
 		this.choice2 = choice2;
+	}
+	
+	public boolean hasChoice2() {
+		return !(TextUtils.isEmpty(choice2) || choice2.equals("NA"));
 	}
 	
 	public String getChoice3() {
@@ -82,12 +90,20 @@ public class Question implements Serializable {
 		this.choice3 = choice3;
 	}
 	
+	public boolean hasChoice3() {
+		return !(TextUtils.isEmpty(choice3) || choice3.equals("NA"));
+	}
+	
 	public String getChoice4() {
 		return choice4;
 	}
 	
 	public void setChoice4(String choice4) {
 		this.choice4 = choice4;
+	}
+	
+	public boolean hasChoice4() {
+		return !(TextUtils.isEmpty(choice4) || choice4.equals("NA"));
 	}
 	
 	public String getAnswer() {
@@ -108,6 +124,13 @@ public class Question implements Serializable {
 	
 	public boolean hasUserInput() {
 		return !TextUtils.isEmpty(userInput);
+	}
+	
+	public boolean isUserInputCorrect() {
+		if (!hasUserInput()) {
+			return false;
+		}
+		return answer.equals(userInput);
 	}
 
 }

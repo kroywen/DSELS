@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.iscoreapp.dsels.R;
+import com.iscoreapp.dsels.model.Quiz;
 import com.iscoreapp.dsels.provider.QuizProvider;
 
 public class BaseScreen extends FragmentActivity {
 	
 	public static final String EXTRA_QUIZ_NAME = "quiz_name";
-	public static final String EXTRA_QUESTION_NUMBER = "question_number";
 	
 	protected QuizProvider quizProvider;
+	protected static Quiz quiz;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

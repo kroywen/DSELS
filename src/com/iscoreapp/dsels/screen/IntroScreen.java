@@ -11,12 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.iscoreapp.dsels.R;
-import com.iscoreapp.dsels.model.Quiz;
 
 public class IntroScreen extends BaseScreen implements OnClickListener {
 	
 	private String name;
-	private Quiz quiz;
 	
 	private TextView quizName;
 	private TextView quizType;
@@ -30,15 +28,16 @@ public class IntroScreen extends BaseScreen implements OnClickListener {
 		setContentView(R.layout.intro_screen);
 		initializeViews();
 		
-		ActionBar actionbar = getActionBar();
-		if (actionbar != null) {
-			actionbar.setDisplayHomeAsUpEnabled(true);
-		}
-		
 		getIntentData();
 		if (TextUtils.isEmpty(name)) {
 			finish();
 			return;
+		}
+		
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle(name);
 		}
 		
 		quiz = quizProvider.loadQuiz(name);
@@ -85,9 +84,8 @@ public class IntroScreen extends BaseScreen implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent(this, QuestionScreen.class);
-		intent.putExtra(EXTRA_QUIZ_NAME, name);
-		intent.putExtra(EXTRA_QUESTION_NUMBER, 0);
 		startActivity(intent);
+		finish();
 	}
 
 }
