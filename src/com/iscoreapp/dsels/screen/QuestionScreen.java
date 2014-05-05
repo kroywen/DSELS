@@ -3,6 +3,7 @@ package com.iscoreapp.dsels.screen;
 import java.util.List;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,19 +11,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.iscoreapp.dsels.R;
+import com.iscoreapp.dsels.api.ApiData;
+import com.iscoreapp.dsels.api.ApiResponse;
 import com.iscoreapp.dsels.fragment.QuestionFragment;
 import com.iscoreapp.dsels.model.Question;
 
 public class QuestionScreen extends BaseScreen implements OnClickListener, OnPageChangeListener {
 	
+	private String name;
+	private String dataLocation; 
+	
 	private int questionNumber;
-	private List<Question> questions;
 	
 	private ViewPager viewPager;
 	private Button backBtn;
@@ -34,7 +40,8 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 		setContentView(R.layout.question_screen);
 		initializeViews();
 		
-		if (quiz == null) {
+		getIntentData();
+		if (quiz == null || TextUtils.isEmpty(name) || TextUtils.isEmpty(dataLocation)) {
 			finish();
 			return;
 		}
@@ -42,17 +49,24 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 		ActionBar actionBar = getActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle(quiz.getName());
+			actionBar.setTitle(name);
 		}
 		
-		questions = quiz.getQuestions();
-		if (questions == null || questions.isEmpty()) {
-			finish();
-			return;
+		if (isConnectionAvailable()) {
+			remoteQuizProvider.loadQuizData(dataLocation);
+			showProgressDialog(getString(R.string.loading_quiz_data));
+		} else {
+			questions = localQuizProvider.loadQuizData(name);
+			updateViews();
 		}
-		questionNumber = 0; 
-		
-		updateViews();
+	}
+	
+	private void getIntentData() {
+		Intent intent = getIntent();
+		if (intent != null) {
+			name = intent.getStringExtra(EXTRA_QUIZ_NAME);
+			dataLocation = intent.getStringExtra(EXTRA_DATA_LOCATION);
+		}
 	}
 	
 	@Override
@@ -76,9 +90,30 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 	}
 	
 	private void updateViews() {
-		QuizAdapter adapter = new QuizAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(adapter);
-		updateButtons();
+		if (questions != null && !questions.isEmpty()) {
+			QuizAdapter adapter = new QuizAdapter(getSupportFragmentManager());
+			viewPager.setAdapter(adapter);
+			updateButtons();
+		} else {
+			showDialog(
+				R.string.error, 
+				R.string.quiz_empty,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				},
+				new DialogInterface.OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						dialog.dismiss();
+						finish();
+					}
+				}
+			);
+		}
 	}
 	
 	private void updateButtons() {
@@ -157,6 +192,17 @@ public class QuestionScreen extends BaseScreen implements OnClickListener, OnPag
 		Intent intent = new Intent(this, ResultsScreen.class);
 		startActivity(intent);
 		finish();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onApiResponse(int apiStatus, ApiResponse apiResponse) {
+		hideProgressDialog();
+		if (apiResponse != null && ApiData.COMMAND_QUIZ_DATA.equalsIgnoreCase(apiResponse.getRequestName())) {
+			questions = (List<Question>) apiResponse.getData();
+			localQuizProvider.storeQuizData(name, questions);
+			updateViews();
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.iscoreapp.dsels.R;
+import com.iscoreapp.dsels.model.Quiz;
 
 public class ResultsScreen extends BaseScreen implements OnClickListener {
 	
@@ -32,7 +33,7 @@ public class ResultsScreen extends BaseScreen implements OnClickListener {
 			actionBar.setTitle(R.string.score_card);			
 		}
 		
-		if (quiz == null) {
+		if (quiz == null || questions == null) {
 			finish();
 			return;
 		}
@@ -53,16 +54,16 @@ public class ResultsScreen extends BaseScreen implements OnClickListener {
 	private void updateViews() {
 		quizName.setText(quiz.getName());
 		
-		int score = quiz.getScore();
-		int scoreCount = quiz.getScoreCount();
+		int score = Quiz.getScore(questions);
+		int scoreCount = Quiz.getScoreCount(questions);
 		scoreView.setText(score + " (" + scoreCount + ")");
 		
-		int wrong = quiz.getWrong();
-		int wrongCount = quiz.getWrongCount();
+		int wrong = Quiz.getWrong(questions);
+		int wrongCount = Quiz.getWrongCount(questions);
 		wrongView.setText(wrong + " (" + wrongCount + ")");
 		
-		int unanswered = quiz.getUnanswered();
-		int unansweredCount = quiz.getUnansweredCount();
+		int unanswered = Quiz.getUnanswered(questions);
+		int unansweredCount = Quiz.getUnansweredCount(questions);
 		unansweredView.setText(unanswered + " (" + unansweredCount + ")");
 		
 		int paperTotal = score + wrong + unanswered;
@@ -84,6 +85,8 @@ public class ResultsScreen extends BaseScreen implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.startNewBtn) {
+			quiz = null;
+			questions = null;
 			Intent intent = new Intent(this, MainScreen.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);

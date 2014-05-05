@@ -1,5 +1,8 @@
 package com.iscoreapp.dsels.screen;
 
+import java.util.List;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,10 @@ import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.iscoreapp.dsels.R;
+import com.iscoreapp.dsels.api.ApiData;
+import com.iscoreapp.dsels.api.ApiResponse;
+import com.iscoreapp.dsels.model.QuizListItem;
+import com.iscoreapp.dsels.util.Utilities;
 
 public class MainScreen extends BaseScreen implements OnClickListener, OnValueChangeListener {
 	
@@ -17,16 +24,21 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 	private TextView selectedQuizView;
 	private Button startBtn;
 	
-	private static String[] quizList = new String[] {
-		"SampleData1", "SampleData2", "SampleData3", "SampleData4", "SampleData5"
-	};
+	private List<QuizListItem> quizList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_screen);
 		initializeViews();
-		populateQuizList();
+
+		if (isConnectionAvailable()) {
+			remoteQuizProvider.loadQuizList();
+			showProgressDialog(getString(R.string.loading_quiz_list));
+		} else {
+			quizList = localQuizProvider.loadQuizList();
+			populateQuizList();
+		}
 	}
 	
 	private void initializeViews() {
@@ -40,19 +52,39 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 	}
 	
 	private void populateQuizList() {
-		if (quizList != null && quizList.length != 0) {
+		if (quizList != null && !quizList.isEmpty()) {
 			quizPicker.setMinValue(0);
-			quizPicker.setMaxValue(quizList.length-1);
+			quizPicker.setMaxValue(quizList.size()-1);
 			quizPicker.setWrapSelectorWheel(false);
-			quizPicker.setDisplayedValues(quizList);
+			quizPicker.setDisplayedValues(Utilities.listAsStringArray(quizList));
 			quizPicker.setValue(0);
-			selectedQuizView.setText(quizList[0]);
+			selectedQuizView.setText(quizList.get(0).getName());
+		} else {
+			showDialog(
+				R.string.error, 
+				R.string.quiz_list_empty,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				},
+				new DialogInterface.OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						dialog.dismiss();
+						finish();
+					}
+				}
+			);
 		}
 	}
 
 	@Override
 	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-		selectedQuizView.setText(quizList[newVal]);
+		QuizListItem selectedQuiz = quizList.get(newVal);
+		selectedQuizView.setText(selectedQuiz.getName());
 	}
 
 	@Override
@@ -65,9 +97,23 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 	}
 	
 	private void startQuizIntroScreen() {
+		QuizListItem quizItem = quizList.get(quizPicker.getValue());
 		Intent intent = new Intent(this, IntroScreen.class);
-		intent.putExtra(EXTRA_QUIZ_NAME, quizList[quizPicker.getValue()]);
+		intent.putExtra(EXTRA_QUIZ_NAME, quizItem.getName());
+		intent.putExtra(EXTRA_INTRO_LOCATION, quizItem.getIntroLocation());
+		intent.putExtra(EXTRA_DATA_LOCATION, quizItem.getDataLocation());
 		startActivity(intent);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onApiResponse(int apiStatus, ApiResponse apiResponse) {
+		hideProgressDialog();
+		if (apiResponse != null && ApiData.COMMAND_QUIZ_LIST.equalsIgnoreCase(apiResponse.getRequestName())) {
+			quizList = (List<QuizListItem>) apiResponse.getData();
+			localQuizProvider.storeQuizList(quizList);
+			populateQuizList();
+		}
 	}
 
 }

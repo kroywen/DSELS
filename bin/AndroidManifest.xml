@@ -10,6 +10,7 @@
         android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,13 +19,16 @@
         android:theme="@style/AppTheme">
         
         <activity
-            android:name="com.iscoreapp.dsels.screen.MainScreen"
-            android:label="@string/app_title">
+            android:name="com.iscoreapp.dsels.screen.SplashScreen"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name="com.iscoreapp.dsels.screen.MainScreen" />
         
         <activity
             android:name="com.iscoreapp.dsels.screen.IntroScreen" />
@@ -34,6 +38,9 @@
         
         <activity
             android:name="com.iscoreapp.dsels.screen.ResultsScreen" />
+        
+        <service
+            android:name="com.iscoreapp.dsels.api.ApiService" />
         
     </application>
 

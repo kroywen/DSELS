@@ -1,22 +1,19 @@
 package com.iscoreapp.dsels.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-public class Quiz {
+public class Quiz implements Serializable {
+	
+	private static final long serialVersionUID = -8215672211291945520L;
 	
 	private String name;
 	private String type;
-	private String introLocation;
-	private String dataLocation;
 	private int questionCount;
 	private String allowedTime;
 	private String updated;
-	private List<Question> questions;
 	
-	public Quiz() {
-		questions = new ArrayList<Question>();
-	}
+	public Quiz() {}
 	
 	public String getName() {
 		return name;
@@ -32,22 +29,6 @@ public class Quiz {
 	
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	public String getIntroLocation() {
-		return introLocation;
-	}
-	
-	public void setIntroLocation(String introLocation) {
-		this.introLocation = introLocation;
-	}
-	
-	public String getDataLocation() {
-		return dataLocation;
-	}
-	
-	public void setDataLocation(String dataLocation) {
-		this.dataLocation = dataLocation;
 	}
 	
 	public int getQuestionCount() {
@@ -74,27 +55,12 @@ public class Quiz {
 		this.updated = updated;
 	}
 	
-	public List<Question> getQuestions() {
-		return questions;
-	}
-	
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-	
-	public void addQuestion(Question question) {
-		if (questions == null) {
-			questions = new ArrayList<Question>();
-		}
-		questions.add(question);
-	}
-	
 	@Override
 	public String toString() {
 		return name;
 	}
 	
-	public int getScore() {
+	public static int getScore(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
@@ -107,7 +73,7 @@ public class Quiz {
 		return score;
 	}
 	
-	public int getScoreCount() {
+	public static int getScoreCount(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
@@ -120,7 +86,7 @@ public class Quiz {
 		return scoreCount;
 	}
 	
-	public int getWrong() {
+	public static int getWrong(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
@@ -133,7 +99,7 @@ public class Quiz {
 		return wrong;
 	}
 	
-	public int getWrongCount() {
+	public static int getWrongCount(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
@@ -146,7 +112,7 @@ public class Quiz {
 		return wrongCount;
 	}
 	
-	public int getUnanswered() {
+	public static int getUnanswered(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
@@ -159,7 +125,7 @@ public class Quiz {
 		return unanswered;
 	}
 	
-	public int getUnansweredCount() {
+	public static int getUnansweredCount(List<Question> questions) {
 		if (questions == null || questions.isEmpty()) {
 			return 0;
 		}
