@@ -29,6 +29,7 @@ public class SplashScreen extends BaseScreen {
 		@Override
 		public void run() {
 			Intent intent = new Intent(SplashScreen.this, MainScreen.class);
+			intent.putExtra("needUpdate", true);
 			startActivity(intent);
 			finish();
 		}

@@ -1,9 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/screen_padding">
     
@@ -24,7 +21,8 @@
             android:id="@+id/quizName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/yellow" />
         
     </LinearLayout>
     
@@ -99,20 +97,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:textStyle="bold"
+        android:textColor="@color/orange"
         android:text="@string/instructions" />
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textColor="@color/blue"
         android:text="@string/instructions_text" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     
     <Button 
         android:id="@+id/startBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_background"
+        android:textColor="@color/btn_text_color"
         android:text="@string/start" />
 
 </LinearLayout>
-</ScrollView>

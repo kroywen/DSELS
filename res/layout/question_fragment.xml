@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
     
     <TextView 
@@ -19,22 +22,37 @@
         <RadioButton 
             android:id="@+id/choice1Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:paddingLeft="10dp"
+            android:button="@drawable/choice_a_background" />
         
         <RadioButton 
             android:id="@+id/choice2Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="top"
+            android:paddingLeft="10dp"
+            android:button="@drawable/choice_b_background" />
         
         <RadioButton 
             android:id="@+id/choice3Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="top"
+            android:paddingLeft="10dp"
+            android:button="@drawable/choice_c_background" />
         
         <RadioButton 
             android:id="@+id/choice4Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="top"
+            android:paddingLeft="10dp"
+            android:button="@drawable/choice_d_background" />
         
     </RadioGroup>
     
@@ -43,6 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="right" />
 
 </LinearLayout>
+</ScrollView>

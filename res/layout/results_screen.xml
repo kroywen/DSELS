@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textColor="@color/blue"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <LinearLayout 
@@ -103,11 +104,18 @@
         
     </LinearLayout>
     
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
     <Button 
         android:id="@+id/startNewBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_background"
+        android:textColor="@color/btn_text_color"
         android:text="@string/start_new" />
 
 </LinearLayout>

@@ -29,5 +29,7 @@
 	<string name="loading_quiz_intro">Loading quiz intro</string>
 	<string name="loading_quiz_data">Loading quiz data</string>
 	<string name="quiz_empty">No data for this quiz</string>
+	<string name="paper_today">Paper today:</string>
+	<string name="watermark">&#169; 2013 LSC Limited. All Rights Reserved.</string>
 
 </resources>

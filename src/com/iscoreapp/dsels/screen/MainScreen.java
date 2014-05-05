@@ -32,7 +32,8 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 		setContentView(R.layout.main_screen);
 		initializeViews();
 
-		if (isConnectionAvailable()) {
+		boolean needUpdate = getIntent().getBooleanExtra("needUpdate", false); 
+		if (isConnectionAvailable() && needUpdate) {
 			remoteQuizProvider.loadQuizList();
 			showProgressDialog(getString(R.string.loading_quiz_list));
 		} else {
@@ -58,7 +59,9 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 			quizPicker.setWrapSelectorWheel(false);
 			quizPicker.setDisplayedValues(Utilities.listAsStringArray(quizList));
 			quizPicker.setValue(0);
-			selectedQuizView.setText(quizList.get(0).getName());
+			
+			QuizListItem selectedQuiz = quizList.get(0);
+			selectedQuizView.setText(selectedQuiz.getName() + ": " + selectedQuiz.getDescription());
 		} else {
 			showDialog(
 				R.string.error, 
@@ -84,7 +87,7 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 	@Override
 	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 		QuizListItem selectedQuiz = quizList.get(newVal);
-		selectedQuizView.setText(selectedQuiz.getName());
+		selectedQuizView.setText(selectedQuiz.getName() + ": " + selectedQuiz.getDescription());
 	}
 
 	@Override
