@@ -26,7 +26,7 @@ public class LocalQuizProvider {
 	@SuppressWarnings("unchecked")
 	public List<QuizListItem> loadQuizList() {
 		try {
-			String filename = context.getCacheDir() + QUIZ_LIST_FILENAME;
+			String filename = context.getFilesDir() + QUIZ_LIST_FILENAME;
 			FileInputStream fis = new FileInputStream(filename);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			List<QuizListItem> quizList = (List<QuizListItem>) ois.readObject();
@@ -41,7 +41,7 @@ public class LocalQuizProvider {
 	
 	public void storeQuizList(List<QuizListItem> quizList) {
 		try {
-			String filename = context.getCacheDir() + File.separator + QUIZ_LIST_FILENAME;
+			String filename = context.getFilesDir() + File.separator + QUIZ_LIST_FILENAME;
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(quizList);
@@ -54,7 +54,7 @@ public class LocalQuizProvider {
 
 	public Quiz loadQuizIntro(String name) {
 		try {
-			String filename = context.getCacheDir() + File.separator + name + "Intro";
+			String filename = context.getFilesDir() + File.separator + name + "Intro";
 			FileInputStream fis = new FileInputStream(filename);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Quiz quiz = (Quiz) ois.readObject();
@@ -69,7 +69,7 @@ public class LocalQuizProvider {
 	
 	public void storeQuizIntro(String name, Quiz quiz) {
 		try {
-			String filename = context.getCacheDir() + File.separator + quiz.getName() + "Intro";
+			String filename = context.getFilesDir() + File.separator + quiz.getName() + "Intro";
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(quiz);
@@ -83,7 +83,7 @@ public class LocalQuizProvider {
 	@SuppressWarnings("unchecked")
 	public List<Question> loadQuizData(String name) {
 		try {
-			String filename = context.getCacheDir() + File.separator + name;
+			String filename = context.getFilesDir() + File.separator + name;
 			FileInputStream fis = new FileInputStream(filename);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			List<Question> questions = (List<Question>) ois.readObject();
@@ -98,7 +98,7 @@ public class LocalQuizProvider {
 	
 	public void storeQuizData(String name, List<Question> questions) {
 		try {
-			String filename = context.getCacheDir() + File.separator + name;
+			String filename = context.getFilesDir() + File.separator + name;
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(questions);

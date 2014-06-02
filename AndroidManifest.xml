@@ -20,7 +20,8 @@
         
         <activity
             android:name="com.iscoreapp.dsels.screen.SplashScreen"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,16 +29,20 @@
         </activity>
         
         <activity
-            android:name="com.iscoreapp.dsels.screen.MainScreen" />
+            android:name="com.iscoreapp.dsels.screen.MainScreen"
+            android:screenOrientation="portrait" />
         
         <activity
-            android:name="com.iscoreapp.dsels.screen.IntroScreen" />
+            android:name="com.iscoreapp.dsels.screen.IntroScreen"
+            android:screenOrientation="portrait" />
         
         <activity
-            android:name="com.iscoreapp.dsels.screen.QuestionScreen" />
+            android:name="com.iscoreapp.dsels.screen.QuestionScreen"
+            android:screenOrientation="portrait" />
         
         <activity
-            android:name="com.iscoreapp.dsels.screen.ResultsScreen" />
+            android:name="com.iscoreapp.dsels.screen.ResultsScreen"
+            android:screenOrientation="portrait" />
         
         <service
             android:name="com.iscoreapp.dsels.api.ApiService" />

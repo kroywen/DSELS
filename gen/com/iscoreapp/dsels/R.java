@@ -38,6 +38,8 @@ public final class R {
         public static final int choice_d_checked=0x7f02000d;
         public static final int choice_d_normal=0x7f02000e;
         public static final int ic_launcher=0x7f02000f;
+        public static final int splash_screen=0x7f020010;
+        public static final int watermark1=0x7f020011;
     }
     public static final class id {
         public static final int allowedTime=0x7f080003;
@@ -57,7 +59,6 @@ public final class R {
         public static final int scoreView=0x7f080011;
         public static final int selectedQuizView=0x7f080006;
         public static final int startBtn=0x7f080004;
-        public static final int startNewBtn=0x7f080015;
         public static final int unansweredView=0x7f080013;
         public static final int userInput=0x7f08000d;
         public static final int viewPager=0x7f08000e;

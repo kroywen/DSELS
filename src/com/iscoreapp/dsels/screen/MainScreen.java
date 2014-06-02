@@ -44,6 +44,7 @@ public class MainScreen extends BaseScreen implements OnClickListener, OnValueCh
 	
 	private void initializeViews() {
 		quizPicker = (NumberPicker) findViewById(R.id.quizPicker);
+		quizPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		quizPicker.setOnValueChangedListener(this);
 		
 		selectedQuizView = (TextView) findViewById(R.id.selectedQuizView);

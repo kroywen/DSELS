@@ -1,25 +1,20 @@
 package com.iscoreapp.dsels.screen;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.iscoreapp.dsels.R;
 import com.iscoreapp.dsels.model.Quiz;
 
-public class ResultsScreen extends BaseScreen implements OnClickListener {
+public class ResultsScreen extends BaseScreen {
 	
 	private TextView quizName;
 	private TextView scoreView;
 	private TextView wrongView;
 	private TextView unansweredView;
 	private TextView paperTotalView;
-	private Button startNewBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +42,6 @@ public class ResultsScreen extends BaseScreen implements OnClickListener {
 		wrongView = (TextView) findViewById(R.id.wrongView);
 		unansweredView = (TextView) findViewById(R.id.unansweredView);
 		paperTotalView = (TextView) findViewById(R.id.paperTotalView);
-		startNewBtn = (Button) findViewById(R.id.startNewBtn);
-		startNewBtn.setOnClickListener(this);
 	}
 	
 	private void updateViews() {
@@ -75,21 +68,12 @@ public class ResultsScreen extends BaseScreen implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			quiz = null;
+			questions = null;
 			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		if (v.getId() == R.id.startNewBtn) {
-			quiz = null;
-			questions = null;
-			Intent intent = new Intent(this, MainScreen.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
 		}
 	}
 
